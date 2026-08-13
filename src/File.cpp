@@ -17,6 +17,7 @@ void loadAccounts(std::vector<Account>& accounts) {
 
         std::getline(ss, account.platform, '|');
         std::getline(ss, account.username, '|');
+        std::getline(ss, account.key, '|');
         std::getline(ss, account.note);
 
         accounts.push_back(account);
@@ -28,6 +29,6 @@ void saveAccounts(const std::vector<Account>& accounts) {
 
     for (const auto& account : accounts) {
         fout << account.platform << '|' << account.username << '|'
-             << account.note << '\n';
+             << account.key << '|' << account.note << '\n';
     }
 }

@@ -24,6 +24,9 @@ void AccountManager::addAccount() {
     std::cout << "请输入用户名：";
     std::cin >> account.username;
 
+    std::cout << "请输入密码：";
+    std::cin >> account.key;
+
     std::cin.ignore();
     std::cout << "请输入备注：";
     std::getline(std::cin, account.note);
@@ -44,6 +47,7 @@ void AccountManager::showAccounts() {
     for (const auto& account : accounts) {
         std::cout << "平台：" << account.platform << '\n';
         std::cout << "用户名：" << account.username << '\n';
+        std::cout << "密码名：" << account.key << '\n';
         std::cout << "备注：" << account.note << '\n';
         std::cout << "--------------------\n";
     }
@@ -61,7 +65,7 @@ void AccountManager::deleteAccount() {
 
     for (const auto& account : accounts) {
         if (account.platform == platform) {
-            idx.push_back({pos, account.username, account.note});
+            idx.push_back({pos, account.username, account.key, account.note});
         }
 
         ++pos;
@@ -75,6 +79,7 @@ void AccountManager::deleteAccount() {
         for (const auto& cur : idx) {
             std::cout << "[" << pos++ << "]\n"
                       << "用户名：" << cur.username << '\n'
+                      << "密码名：" << cur.key << '\n'
                       << "备注:" << cur.note;
             std::cout << "\n--------------------\n";
         }
@@ -95,12 +100,12 @@ void AccountManager::updateAccount() {
     std::vector<MatchAccount> idx;
     std::string platform;
     int choose, pos = 0;
-    std::string curname, curnote;
+    std::string curname, curnote, curkey;
     std::cout << "请输入账户所在的平台：";
     std::cin >> platform;
     for (const auto& account : accounts) {
         if (account.platform == platform) {
-            idx.push_back({pos, account.username, account.note});
+            idx.push_back({pos, account.username, account.key, account.note});
         }
         ++pos;
     }
@@ -112,6 +117,7 @@ void AccountManager::updateAccount() {
         for (const auto& cur : idx) {
             std::cout << "[" << pos++ << "]\n"
                       << "用户名：" << cur.username << '\n'
+                      << "密码名：" << cur.key << '\n'
                       << "备注:" << cur.note;
             std::cout << "\n--------------------\n";
         }
@@ -122,14 +128,19 @@ void AccountManager::updateAccount() {
             std::cout << "不合法！\n";
         } else {
             std::string op;
-            std::cout
-                << "改什么？（用户名：username；备注：note；全部：all）\n";
+            std::cout << "改什么？（用户名：username；备注：note；密码：key；全"
+                         "部：all）\n";
             std::cin >> op;
             if (op == "username" || op == "all") {
                 std::cout << "更改后的用户名：";
                 std::cin >> curname;
-                std::cin.ignore();
                 accounts[idx[choose].idx].username = curname;
+            }
+            if (op == "key" || op == "all") {
+                std::cout << "更改后的密码：";
+                std::cin >> curkey;
+                std::cin.ignore();
+                accounts[idx[choose].idx].key = curkey;
             }
             if (op == "note" || op == "all") {
                 std::cout << "更改后的备注：";
@@ -154,6 +165,7 @@ void AccountManager::findAccount() {
 
             std::cout << "\n平台：" << account.platform << '\n';
             std::cout << "用户名：" << account.username << '\n';
+            std::cout << "密码：" << account.key << '\n';
             std::cout << "备注：" << account.note << '\n';
         }
     }
