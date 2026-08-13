@@ -180,8 +180,13 @@ void AccountManager::updateAccount() {
                     accounts[idx[choose].idx].note = curnote;
                 }
 
-                std::cout << "已更改！\n";
-                flag = false;
+                if (op != "username" && op != "key" && op != "note" &&
+                    op != "all") {
+                    std::cout << "无效输入！\n";
+                } else {
+                    std::cout << "已更改！\n";
+                    flag = false;
+                }
             }
         } while (flag);
     }
