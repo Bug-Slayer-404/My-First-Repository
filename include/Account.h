@@ -6,14 +6,14 @@
 struct MatchAccount {
     int idx;
     std::string username;
-    std::string key;
+    std::string possword;
     std::string note;
 };
 
 struct Account {
     std::string platform;
     std::string username;
-    std::string key;
+    std::string possword;
     std::string note;
 };
 
